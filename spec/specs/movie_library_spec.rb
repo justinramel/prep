@@ -9,7 +9,27 @@ If you have any questions please do not hesitate to email me at jp@developwithpa
 Develop With Passion
 
 =end
+class Movie
+  def initialize(*args)
+    
+  end
 
+end
+
+class MovieLibrary
+  def initialize(movies)
+    @movies = movies
+  end
+
+  def add(movie)
+    @movies.push(movie) unless @movies.include? movie
+  end
+
+  def all_movies
+    @movies
+  end
+
+end
 describe MovieLibrary do
   context 'general movie functionality' do
     let(:movie_collection){[]}
@@ -81,147 +101,147 @@ describe MovieLibrary do
       end
     end
     
-    context 'searching and sorting' do
+    #context 'searching and sorting' do
 
-      let(:indiana_jones_and_the_temple_of_doom) do
-        Movie.new("Indiana Jones And The Temple Of Doom",
-        Time.new(1982, 1, 1),
-        Genre.action,
-        ProductionStudio.Universal,
-        10)
-      end
+      #let(:indiana_jones_and_the_temple_of_doom) do
+        #Movie.new("Indiana Jones And The Temple Of Doom",
+        #Time.new(1982, 1, 1),
+        #Genre.action,
+        #ProductionStudio.Universal,
+        #10)
+      #end
 
-      let (:cars) do
-       Movie.new("Cars",
-        Time.new(2004, 1, 1),
-        Genre.kids,
-        ProductionStudio.Pixar,
-        10)
-      end
+      #let (:cars) do
+       #Movie.new("Cars",
+        #Time.new(2004, 1, 1),
+        #Genre.kids,
+        #ProductionStudio.Pixar,
+        #10)
+      #end
 
-      let(:the_ring) do
-        Movie.new("The Ring",
-        Time.new(2005, 1, 1),
-        Genre.horror,
-        ProductionStudio.MGM,
-        7)
-      end
+      #let(:the_ring) do
+        #Movie.new("The Ring",
+        #Time.new(2005, 1, 1),
+        #Genre.horror,
+        #ProductionStudio.MGM,
+        #7)
+      #end
 
-      let(:shrek) do
-        Movie.new("Shrek",
-        Time.new(2006, 5, 10),
-        Genre.kids,
-        ProductionStudio.Dreamworks,
-        10)
-      end
+      #let(:shrek) do
+        #Movie.new("Shrek",
+        #Time.new(2006, 5, 10),
+        #Genre.kids,
+        #ProductionStudio.Dreamworks,
+        #10)
+      #end
 
-      let(:a_bugs_life) do
-        Movie.new("A Bugs Life",
-        Time.new(2000, 6, 20),
-        Genre.kids,
-        ProductionStudio.Pixar,
-        10)
-      end
+      #let(:a_bugs_life) do
+        #Movie.new("A Bugs Life",
+        #Time.new(2000, 6, 20),
+        #Genre.kids,
+        #ProductionStudio.Pixar,
+        #10)
+      #end
 
-      let(:theres_something_about_mary) do
-        Movie.new("There's Something About Mary",
-        Time.new(2007, 1, 1),
-        Genre.comedy,
-        ProductionStudio.MGM,
-        5)
-      end
+      #let(:theres_something_about_mary) do
+        #Movie.new("There's Something About Mary",
+        #Time.new(2007, 1, 1),
+        #Genre.comedy,
+        #ProductionStudio.MGM,
+        #5)
+      #end
 
-      let(:pirates_of_the_carribean) do
-        Movie.new("Pirates of the Carribean",
-        Time.new(2003, 1, 1),
-        Genre.action,
-        ProductionStudio.Disney,
-        10)
-      end
+      #let(:pirates_of_the_carribean) do
+        #Movie.new("Pirates of the Carribean",
+        #Time.new(2003, 1, 1),
+        #Genre.action,
+        #ProductionStudio.Disney,
+        #10)
+      #end
 
-      let(:original_movies){[indiana_jones_and_the_temple_of_doom,
-      cars,a_bugs_life,theres_something_about_mary,pirates_of_the_carribean,the_ring,shrek]}
+      #let(:original_movies){[indiana_jones_and_the_temple_of_doom,
+      #cars,a_bugs_life,theres_something_about_mary,pirates_of_the_carribean,the_ring,shrek]}
 
-      context 'when searching for movies' do
-          it 'should be able to find all movies published by pixar' do
-            results = sut.all_movies_published_by_pixar
+      #context 'when searching for movies' do
+          #it 'should be able to find all movies published by pixar' do
+            #results = sut.all_movies_published_by_pixar
 
-            results.should == [ cars, a_bugs_life ]
-          end
+            #results.should == [ cars, a_bugs_life ]
+          #end
 
-          it 'should be able to find all movies published by pixar or disney' do
+          #it 'should be able to find all movies published by pixar or disney' do
 
-            results = sut.all_movies_published_by_pixar_or_disney
+            #results = sut.all_movies_published_by_pixar_or_disney
 
-            results.should == [ a_bugs_life, pirates_of_the_carribean, cars ]
-          end
+            #results.should == [ a_bugs_life, pirates_of_the_carribean, cars ]
+          #end
 
-          it 'should be able to find all movies not published by pixar' do
-            results = sut.all_movies_not_published_by_pixar()
+          #it 'should be able to find all movies not published by pixar' do
+            #results = sut.all_movies_not_published_by_pixar()
 
-            [cars,a_bugs_life].each do |item|
-              results.include?(item).should be_false
-            end
-          end
+            #[cars,a_bugs_life].each do |item|
+              #results.include?(item).should be_false
+            #end
+          #end
 
-          it 'should be able to find all movies published after a certain year' do
+          #it 'should be able to find all movies published after a certain year' do
 
-            results = sut.all_movies_published_after(2004)
+            #results = sut.all_movies_published_after(2004)
 
-            results.should == [the_ring, shrek, theres_something_about_mary ]
-          end
+            #results.should == [the_ring, shrek, theres_something_about_mary ]
+          #end
 
-          it 'should be able to find all movies published between a certain range of years' do
+          #it 'should be able to find all movies published between a certain range of years' do
 
-            results = sut.all_movies_published_between_years(1982, 2003)
+            #results = sut.all_movies_published_between_years(1982, 2003)
 
-            results.should == [ indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean ]
+            #results.should == [ indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean ]
 
-          end
+          #end
 
-          it 'should be able to find all kid movies' do
-            results = sut.all_kid_movies()
+          #it 'should be able to find all kid movies' do
+            #results = sut.all_kid_movies()
 
-            results.should == [ a_bugs_life, shrek, cars ]
-          end
+            #results.should == [ a_bugs_life, shrek, cars ]
+          #end
 
-          it 'should be able to find all action movies' do
+          #it 'should be able to find all action movies' do
 
-            results = sut.all_action_movies()
+            #results = sut.all_action_movies()
 
-            results.should  == [ indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
-          end
-      end
-      context 'when searching for movies' do
-        it 'should be able to sort all movies by title descending' do
-          results = sut.sort_all_movies_by_title_descending()
+            #results.should  == [ indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
+          #end
+      #end
+      #context 'when searching for movies' do
+        #it 'should be able to sort all movies by title descending' do
+          #results = sut.sort_all_movies_by_title_descending()
 
-          results.should == [theres_something_about_mary, the_ring, shrek, pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom, cars, a_bugs_life]
-        end
+          #results.should == [theres_something_about_mary, the_ring, shrek, pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom, cars, a_bugs_life]
+        #end
 
-        it 'should be able to sort all movies by title ascending' do
-          results = sut.sort_all_movies_by_title_ascending()
+        #it 'should be able to sort all movies by title ascending' do
+          #results = sut.sort_all_movies_by_title_ascending()
 
-          results.should == [ a_bugs_life, cars, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean, shrek, the_ring, theres_something_about_mary ]
-        end
-        it 'should be able to sort all movies by date published descending' do
-          results = sut.sort_all_movies_by_date_published_descending()
+          #results.should == [ a_bugs_life, cars, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean, shrek, the_ring, theres_something_about_mary ]
+        #end
+        #it 'should be able to sort all movies by date published descending' do
+          #results = sut.sort_all_movies_by_date_published_descending()
 
-          results.should == [ theres_something_about_mary, shrek, the_ring, cars, pirates_of_the_carribean, a_bugs_life, indiana_jones_and_the_temple_of_doom ]
-        end
+          #results.should == [ theres_something_about_mary, shrek, the_ring, cars, pirates_of_the_carribean, a_bugs_life, indiana_jones_and_the_temple_of_doom ]
+        #end
 
-        it 'should be able to sort all movies by date published ascending' do
-          results = sut.sort_all_movies_by_date_published_ascending()
+        #it 'should be able to sort all movies by date published ascending' do
+          #results = sut.sort_all_movies_by_date_published_ascending()
 
-          results.should == [ indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, the_ring, shrek, theres_something_about_mary ]
-        end
+          #results.should == [ indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, the_ring, shrek, theres_something_about_mary ]
+        #end
 
-        it 'should be able to sort all movies by studio rating and year published' do
-          results = sut.sort_all_movies_by_movie_studio_and_year_published()
+        #it 'should be able to sort all movies by studio rating and year published' do
+          #results = sut.sort_all_movies_by_movie_studio_and_year_published()
 
-          results.should == [ the_ring, theres_something_about_mary, a_bugs_life, cars, shrek, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
-        end
-      end
-    end
+          #results.should == [ the_ring, theres_something_about_mary, a_bugs_life, cars, shrek, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
+        #end
+      #end
+    #end
   end
 end
