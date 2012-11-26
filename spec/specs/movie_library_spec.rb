@@ -174,10 +174,10 @@ describe MovieLibrary do
             [ indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean ].each { |item| results.include?(item).should be_true }
           end
 
-          #it 'should be able to find all kid movies' do
-            #results = sut.all_kid_movies()
-            #results.should == [ a_bugs_life, shrek, cars ]
-          #end
+          it 'should be able to find all kid movies' do
+            results = sut.all_kid_movies()
+            [ a_bugs_life, shrek, cars ].each { |item| results.include?(item).should be_true }
+          end
 
           #it 'should be able to find all action movies' do
 

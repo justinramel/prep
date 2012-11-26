@@ -32,6 +32,10 @@ class MovieLibrary
     find_by(lambda { |item| item.release_date.year >= start_year || item.release_date.year <= end_year } )
   end
 
+  def all_kid_movies
+    find_by(lambda { |item| item.genre == Genre.kids })
+  end
+
   private 
   def find_by(predicate) 
     all_movies.find_all do |item|

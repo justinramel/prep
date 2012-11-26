@@ -1,6 +1,6 @@
 
 class Movie
-  attr_reader :title, :studio, :release_date
+  attr_reader :title, :studio, :release_date, :genre
 
   def initialize(title = 'unknown', release_date = nil, genre = nil, studio = nil, rating = 0)
     @title = title
