@@ -9,55 +9,27 @@ If you have any questions please do not hesitate to email me at jp@developwithpa
 Develop With Passion
 
 =end
-class Movie
-  attr_reader :title
 
-  def initialize(title = 'unknown')
-    @title = title
-  end
-
-  def ==(other)
-    @title == other.title
-  end
-
-end
-
-class MovieLibrary
-  def initialize(movies)
-    @movies = movies
-  end
-
-  def add(movie)
-    @movies.push(movie) unless @movies.include? movie
-  end
-
-  def all_movies
-    @movies
-  end
-
-end
 describe MovieLibrary do
   context 'general movie functionality' do
     let(:movie_collection){[]}
     let(:sut){MovieLibrary.new(movie_collection)}
 
     context 'when counting the number of movies' do
-      before (:each) do
-        movie_collection.push(Movie.new(),
-                             Movie.new())
+      before(:each) do
+        movie_collection.push(Movie.new(), Movie.new())
       end
-      
-      
+
       it 'should return the number of movies' do
         sut.all_movies.count.should == 2
       end
     end
-    
+
     context 'when asked for all of the movies' do
       let(:first_movie){Movie.new}
       let(:second_movie){Movie.new}
 
-      before (:each) do
+      before(:each) do
         movie_collection.push(first_movie)
         movie_collection.push(second_movie)
       end
@@ -69,10 +41,10 @@ describe MovieLibrary do
     context 'when adding a movie to the library' do
       let(:movie){Movie.new}
 
-      before (:each) do
+      before(:each) do
         sut.add(movie)
       end
-      
+
       it 'should store it in the movie collection' do
         movie_collection.include?(movie).should be_true
       end
@@ -107,73 +79,77 @@ describe MovieLibrary do
       end
     end
     
-    #context 'searching and sorting' do
+    context 'searching and sorting' do
 
-      #let(:indiana_jones_and_the_temple_of_doom) do
-        #Movie.new("Indiana Jones And The Temple Of Doom",
-        #Time.new(1982, 1, 1),
-        #Genre.action,
-        #ProductionStudio.Universal,
-        #10)
-      #end
+      let(:indiana_jones_and_the_temple_of_doom) do
+        Movie.new("Indiana Jones And The Temple Of Doom",
+        Time.new(1982, 1, 1),
+        Genre.action,
+        ProductionStudio.Universal,
+        10)
+      end
 
-      #let (:cars) do
-       #Movie.new("Cars",
-        #Time.new(2004, 1, 1),
-        #Genre.kids,
-        #ProductionStudio.Pixar,
-        #10)
-      #end
+      let (:cars) do
+       Movie.new("Cars",
+        Time.new(2004, 1, 1),
+        Genre.kids,
+        ProductionStudio.Pixar,
+        10)
+      end
 
-      #let(:the_ring) do
-        #Movie.new("The Ring",
-        #Time.new(2005, 1, 1),
-        #Genre.horror,
-        #ProductionStudio.MGM,
-        #7)
-      #end
+      let(:the_ring) do
+        Movie.new("The Ring",
+        Time.new(2005, 1, 1),
+        Genre.horror,
+        ProductionStudio.MGM,
+        7)
+      end
 
-      #let(:shrek) do
-        #Movie.new("Shrek",
-        #Time.new(2006, 5, 10),
-        #Genre.kids,
-        #ProductionStudio.Dreamworks,
-        #10)
-      #end
+      let(:shrek) do
+        Movie.new("Shrek",
+        Time.new(2006, 5, 10),
+        Genre.kids,
+        ProductionStudio.Dreamworks,
+        10)
+      end
 
-      #let(:a_bugs_life) do
-        #Movie.new("A Bugs Life",
-        #Time.new(2000, 6, 20),
-        #Genre.kids,
-        #ProductionStudio.Pixar,
-        #10)
-      #end
+      let(:a_bugs_life) do
+        Movie.new("A Bugs Life",
+        Time.new(2000, 6, 20),
+        Genre.kids,
+        ProductionStudio.Pixar,
+        10)
+      end
 
-      #let(:theres_something_about_mary) do
-        #Movie.new("There's Something About Mary",
-        #Time.new(2007, 1, 1),
-        #Genre.comedy,
-        #ProductionStudio.MGM,
-        #5)
-      #end
+      let(:theres_something_about_mary) do
+        Movie.new("There's Something About Mary",
+        Time.new(2007, 1, 1),
+        Genre.comedy,
+        ProductionStudio.MGM,
+        5)
+      end
 
-      #let(:pirates_of_the_carribean) do
-        #Movie.new("Pirates of the Carribean",
-        #Time.new(2003, 1, 1),
-        #Genre.action,
-        #ProductionStudio.Disney,
-        #10)
-      #end
+      let(:pirates_of_the_carribean) do
+        Movie.new("Pirates of the Carribean",
+        Time.new(2003, 1, 1),
+        Genre.action,
+        ProductionStudio.Disney,
+        10)
+      end
 
-      #let(:original_movies){[indiana_jones_and_the_temple_of_doom,
-      #cars,a_bugs_life,theres_something_about_mary,pirates_of_the_carribean,the_ring,shrek]}
+      let(:original_movies){[indiana_jones_and_the_temple_of_doom, cars,a_bugs_life,theres_something_about_mary,pirates_of_the_carribean,the_ring,shrek]}
 
-      #context 'when searching for movies' do
-          #it 'should be able to find all movies published by pixar' do
-            #results = sut.all_movies_published_by_pixar
+      before :each do
+        original_movies.each do |movie|
+          movie_collection.push(movie)
+        end
+      end
 
-            #results.should == [ cars, a_bugs_life ]
-          #end
+      context 'when searching for movies' do
+          it 'should be able to find all movies published by pixar' do
+            results = sut.all_movies_published_by_pixar
+            results.should == [ cars, a_bugs_life ]
+          end
 
           #it 'should be able to find all movies published by pixar or disney' do
 
@@ -217,8 +193,8 @@ describe MovieLibrary do
 
             #results.should  == [ indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
           #end
-      #end
-      #context 'when searching for movies' do
+      end
+      context 'when searching for movies' do
         #it 'should be able to sort all movies by title descending' do
           #results = sut.sort_all_movies_by_title_descending()
 
@@ -247,7 +223,7 @@ describe MovieLibrary do
 
           #results.should == [ the_ring, theres_something_about_mary, a_bugs_life, cars, shrek, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
         #end
-      #end
-    #end
+      end
+    end
   end
 end
