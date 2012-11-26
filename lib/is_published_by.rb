@@ -1,10 +1,11 @@
 class IsPublishedBy
-  
+  include Matcher  
+
   def initialize(studio)
     @studio = studio
   end
 
-  def call(item)
+  def matches(item)
     item.studio == @studio
   end
 end

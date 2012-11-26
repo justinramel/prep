@@ -1,8 +1,8 @@
 require 'rspec'
 
- Dir.glob('lib/**/*.rb').each do |f|
-   require File.basename(f, '.rb')
- end
+Dir.glob('lib/**/*.rb').each do |f|
+ require File.basename(f, '.rb')
+end
 
 module RSpec
   Matchers.define :contain do |*expected_items|

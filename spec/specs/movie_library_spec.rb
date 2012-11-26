@@ -152,7 +152,7 @@ describe MovieLibrary do
           end
 
           it 'should be able to find all movies published by pixar or disney' do
-            results = sut.all_movies_published_by_pixar_or_disney
+            results = sut.all_items_matching Movie.is_published_by_pixar_or_disney
 
             results.should contain(cars,a_bugs_life,pirates_of_the_carribean)
           end
