@@ -24,6 +24,10 @@ class MovieLibrary
     find_by(lambda { |item| item.studio != ProductionStudio.Pixar } )
   end
 
+  def all_movies_published_after(year)
+    find_by(lambda { |item| item.release_date.year >= year } )
+  end
+
   private 
   def find_by(predicate) 
     all_movies.find_all do |item|

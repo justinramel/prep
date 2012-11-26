@@ -164,12 +164,10 @@ describe MovieLibrary do
             end
           end
 
-          #it 'should be able to find all movies published after a certain year' do
-
-            #results = sut.all_movies_published_after(2004)
-
-            #results.should == [the_ring, shrek, theres_something_about_mary ]
-          #end
+          it 'should be able to find all movies published after a certain year' do
+            results = sut.all_movies_published_after(2004)
+            [the_ring, shrek, theres_something_about_mary ].each { |item| results.include?(item).should be_true }
+          end
 
           #it 'should be able to find all movies published between a certain range of years' do
 

@@ -1,6 +1,6 @@
 
 class Movie
-  attr_reader :title, :studio
+  attr_reader :title, :studio, :release_date
 
   def initialize(title = 'unknown', release_date = nil, genre = nil, studio = nil, rating = 0)
     @title = title
@@ -15,6 +15,6 @@ class Movie
   end
 
   def to_s
-    "#{title}, #{studio}"
+    "#{title}, #{studio}, #{release_date}"
   end
 end
