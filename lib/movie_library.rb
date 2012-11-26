@@ -36,6 +36,10 @@ class MovieLibrary
     find_by(lambda { |item| item.genre == Genre.kids })
   end
 
+  def all_action_movies
+    find_by(lambda { |item| item.genre == Genre.action })
+  end
+
   private 
   def find_by(predicate) 
     all_movies.find_all do |item|

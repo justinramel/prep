@@ -179,12 +179,10 @@ describe MovieLibrary do
             [ a_bugs_life, shrek, cars ].each { |item| results.include?(item).should be_true }
           end
 
-          #it 'should be able to find all action movies' do
-
-            #results = sut.all_action_movies()
-
-            #results.should  == [ indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
-          #end
+          it 'should be able to find all action movies' do
+            results = sut.all_action_movies()
+            [ indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ].each { |item| results.include?(item).should be_true }
+          end
       end
       context 'when searching for movies' do
         #it 'should be able to sort all movies by title descending' do
