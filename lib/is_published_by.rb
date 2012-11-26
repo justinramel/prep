@@ -5,6 +5,6 @@ class IsPublishedBy
   end
 
   def call(item)
-    @item == studio
+    item.studio == @studio
   end
 end
