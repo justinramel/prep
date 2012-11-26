@@ -153,7 +153,7 @@ describe MovieLibrary do
 
           it 'should be able to find all movies published by pixar or disney' do
             results = sut.all_movies_published_by_pixar_or_disney
-            [ a_bugs_life, pirates_of_the_carribean, cars ].each { |item| results.include?(item).should be_true }
+            results.should contain(cars,a_bugs_life,pirates_of_the_carribean)
           end
 
           it 'should be able to find all movies not published by pixar' do

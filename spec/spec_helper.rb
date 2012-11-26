@@ -1,9 +1,17 @@
 require 'rspec'
 
-require_relative '../lib/movie_library.rb'
-require_relative '../lib/movie.rb'
-require_relative '../lib/genre.rb'
-require_relative '../lib/production_studio.rb'
+require 'movie_library'
+require 'movie'
+require 'genre'
+require 'production_studio'
+
+module RSpec
+  Matchers.define :contain do|*items_in_order|
+    match do|set_to_check|
+      
+    end
+  end
+end
 
 
 
