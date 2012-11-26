@@ -6,12 +6,17 @@ require 'genre'
 require 'production_studio'
 
 module RSpec
-  Matchers.define :contain do|*items_in_order|
-    match do|set_to_check|
-      
+  Matchers.define :contain do |*expected_items|
+    match do|results|
+      expected_items.each do |item|
+        results.include?(item).should be_true
+      end
+    end
+  end
+
+  Matchers.define :contain_in_order do |*expected_items|
+    match do|results|
+      expected_items.should == results
     end
   end
 end
-
-
-

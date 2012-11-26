@@ -39,7 +39,7 @@ class MovieLibrary
   def all_action_movies
     find_by(lambda { |item| item.genre == Genre.action })
   end
-  
+
   def sort_all_movies_by_title_ascending
     all_movies.sort do |x,y|
       x.title <=> y.title
@@ -61,13 +61,11 @@ class MovieLibrary
   end
 
   def sort_all_movies_by_movie_studio_and_year_published
-    all_movies.sort do |x,y|
-      x.studio <=> y.studio
-    end
+    all_movies.sort
   end
 
-  private 
-  def find_by(predicate) 
+  private
+  def find_by(predicate)
     all_movies.find_all do |item|
       predicate.call(item)
     end
