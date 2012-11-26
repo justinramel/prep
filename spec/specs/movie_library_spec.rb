@@ -147,12 +147,13 @@ describe MovieLibrary do
 
       context 'when searching for movies' do
           it 'should be able to find all movies published by pixar' do
-            results = sut.all_movies_published_by_pixar
+            results = sut.all_items_matching Movie.is_published_by_pixar
             results.should == [ cars, a_bugs_life ]
           end
 
           it 'should be able to find all movies published by pixar or disney' do
             results = sut.all_movies_published_by_pixar_or_disney
+
             results.should contain(cars,a_bugs_life,pirates_of_the_carribean)
           end
 

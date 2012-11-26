@@ -1,43 +1,46 @@
+require 'enumerables'
 
 class MovieLibrary
+  include Enumerables
+
   def initialize(movies)
-    @movies = movies
+    @all = movies
+  end
+
+  def all
+    @all
   end
 
   def add(movie)
-    @movies.push(movie) unless @movies.include? movie
+    all.push(movie) unless all.include? movie
   end
 
   def all_movies
-    @movies
-  end
-
-  def all_movies_published_by_pixar
-    find_by(lambda { |item| item.studio == ProductionStudio.Pixar } )
+    all
   end
 
   def all_movies_published_by_pixar_or_disney
-    find_by(lambda { |item| item.studio == ProductionStudio.Pixar || item.studio == ProductionStudio.Disney } )
+    all_items_matching{ |item| item.studio == ProductionStudio.Pixar || item.studio == ProductionStudio.Disney } 
   end
 
   def all_movies_not_published_by_pixar
-    find_by(lambda { |item| item.studio != ProductionStudio.Pixar } )
+    all_items_matching{ |item| item.studio != ProductionStudio.Pixar } 
   end
 
   def all_movies_published_after(year)
-    find_by(lambda { |item| item.release_date.year >= year } )
+    all_items_matching{ |item| item.release_date.year >= year } 
   end
 
   def all_movies_published_between_years(start_year, end_year)
-    find_by(lambda { |item| item.release_date.year >= start_year || item.release_date.year <= end_year } )
+    all_items_matching{ |item| item.release_date.year >= start_year || item.release_date.year <= end_year } 
   end
 
   def all_kid_movies
-    find_by(lambda { |item| item.genre == Genre.kids })
+    all_items_matching{ |item| item.genre == Genre.kids }
   end
 
   def all_action_movies
-    find_by(lambda { |item| item.genre == Genre.action })
+    all_items_matching{|item| item.genre == Genre.action }
   end
 
   def sort_all_movies_by_title_ascending
@@ -64,10 +67,4 @@ class MovieLibrary
     all_movies.sort
   end
 
-  private
-  def find_by(predicate)
-    all_movies.find_all do |item|
-      predicate.call(item)
-    end
-  end
 end

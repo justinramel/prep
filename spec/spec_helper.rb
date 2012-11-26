@@ -4,6 +4,7 @@ require 'movie_library'
 require 'movie'
 require 'genre'
 require 'production_studio'
+require 'is_published_by'
 
 module RSpec
   Matchers.define :contain do |*expected_items|

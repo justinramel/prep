@@ -27,4 +27,8 @@ class Movie
   def to_s
     "#{title}"
   end
+
+  def self.is_published_by_pixar
+    IsPublishedBy.new(ProductionStudio.pixar)
+  end
 end
