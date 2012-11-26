@@ -39,11 +39,15 @@ class MovieLibrary
   def all_action_movies
     find_by(lambda { |item| item.genre == Genre.action })
   end
-
-  def sort_all_movies_by_title_descending
+  
+  def sort_all_movies_by_title_ascending
     all_movies.sort do |x,y|
       x.title <=> y.title
-    end.reverse
+    end
+  end
+
+  def sort_all_movies_by_title_descending
+    sort_all_movies_by_title_ascending.reverse
   end
 
   private 
