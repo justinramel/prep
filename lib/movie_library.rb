@@ -60,6 +60,12 @@ class MovieLibrary
     sort_all_movies_by_date_published_ascending.reverse
   end
 
+  def sort_all_movies_by_movie_studio_and_year_published
+    all_movies.sort do |x,y|
+      x.studio <=> y.studio
+    end
+  end
+
   private 
   def find_by(predicate) 
     all_movies.find_all do |item|

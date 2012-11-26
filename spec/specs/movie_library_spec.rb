@@ -205,11 +205,10 @@ describe MovieLibrary do
           results.should == [ indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, the_ring, shrek, theres_something_about_mary ]
         end
 
-        #it 'should be able to sort all movies by studio rating and year published' do
-          #results = sut.sort_all_movies_by_movie_studio_and_year_published()
-
-          #results.should == [ the_ring, theres_something_about_mary, a_bugs_life, cars, shrek, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
-        #end
+        it 'should be able to sort all movies by studio rating and year published' do
+          results = sut.sort_all_movies_by_movie_studio_and_year_published()
+          results.should == [ the_ring, theres_something_about_mary, a_bugs_life, cars, shrek, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
+        end
       end
     end
   end
