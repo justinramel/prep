@@ -156,13 +156,13 @@ describe MovieLibrary do
             [ a_bugs_life, pirates_of_the_carribean, cars ].each { |item| results.include?(item).should be_true }
           end
 
-          #it 'should be able to find all movies not published by pixar' do
-            #results = sut.all_movies_not_published_by_pixar()
+          it 'should be able to find all movies not published by pixar' do
+            results = sut.all_movies_not_published_by_pixar()
 
-            #[cars,a_bugs_life].each do |item|
-              #results.include?(item).should be_false
-            #end
-          #end
+            [cars,a_bugs_life].each do |item|
+              results.include?(item).should be_false
+            end
+          end
 
           #it 'should be able to find all movies published after a certain year' do
 

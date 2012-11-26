@@ -20,6 +20,10 @@ class MovieLibrary
     find_by(lambda { |item| item.studio == ProductionStudio.Pixar || item.studio == ProductionStudio.Disney } )
   end
 
+  def all_movies_not_published_by_pixar
+    find_by(lambda { |item| item.studio != ProductionStudio.Pixar } )
+  end
+
   private 
   def find_by(predicate) 
     all_movies.find_all do |item|
