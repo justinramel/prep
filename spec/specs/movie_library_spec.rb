@@ -151,12 +151,10 @@ describe MovieLibrary do
             results.should == [ cars, a_bugs_life ]
           end
 
-          #it 'should be able to find all movies published by pixar or disney' do
-
-            #results = sut.all_movies_published_by_pixar_or_disney
-
-            #results.should == [ a_bugs_life, pirates_of_the_carribean, cars ]
-          #end
+          it 'should be able to find all movies published by pixar or disney' do
+            results = sut.all_movies_published_by_pixar_or_disney
+            [ a_bugs_life, pirates_of_the_carribean, cars ].each { |item| results.include?(item).should be_true }
+          end
 
           #it 'should be able to find all movies not published by pixar' do
             #results = sut.all_movies_not_published_by_pixar()

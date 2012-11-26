@@ -13,4 +13,8 @@ class Movie
   def ==(other)
     @title == other.title
   end
+
+  def to_s
+    "#{title}, #{studio}"
+  end
 end
