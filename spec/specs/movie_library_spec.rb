@@ -185,11 +185,10 @@ describe MovieLibrary do
           end
       end
       context 'when searching for movies' do
-        #it 'should be able to sort all movies by title descending' do
-          #results = sut.sort_all_movies_by_title_descending()
-
-          #results.should == [theres_something_about_mary, the_ring, shrek, pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom, cars, a_bugs_life]
-        #end
+        it 'should be able to sort all movies by title descending' do
+          results = sut.sort_all_movies_by_title_descending()
+          results.should == [theres_something_about_mary, the_ring, shrek, pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom, cars, a_bugs_life]
+        end
 
         #it 'should be able to sort all movies by title ascending' do
           #results = sut.sort_all_movies_by_title_ascending()

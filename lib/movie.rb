@@ -15,6 +15,6 @@ class Movie
   end
 
   def to_s
-    "#{title}, #{studio}, #{release_date}"
+    "#{title}"
   end
 end
