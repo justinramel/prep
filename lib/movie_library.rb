@@ -28,6 +28,10 @@ class MovieLibrary
     find_by(lambda { |item| item.release_date.year >= year } )
   end
 
+  def all_movies_published_between_years(start_year, end_year)
+    find_by(lambda { |item| item.release_date.year >= start_year || item.release_date.year <= end_year } )
+  end
+
   private 
   def find_by(predicate) 
     all_movies.find_all do |item|

@@ -169,17 +169,13 @@ describe MovieLibrary do
             [the_ring, shrek, theres_something_about_mary ].each { |item| results.include?(item).should be_true }
           end
 
-          #it 'should be able to find all movies published between a certain range of years' do
-
-            #results = sut.all_movies_published_between_years(1982, 2003)
-
-            #results.should == [ indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean ]
-
-          #end
+          it 'should be able to find all movies published between a certain range of years' do
+            results = sut.all_movies_published_between_years(1982, 2003)
+            [ indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean ].each { |item| results.include?(item).should be_true }
+          end
 
           #it 'should be able to find all kid movies' do
             #results = sut.all_kid_movies()
-
             #results.should == [ a_bugs_life, shrek, cars ]
           #end
 
