@@ -50,6 +50,12 @@ class MovieLibrary
     sort_all_movies_by_title_ascending.reverse
   end
 
+  def sort_all_movies_by_date_published_descending
+    all_movies.sort do |x,y|
+      x.release_date <=> y.release_date
+    end.reverse
+  end
+
   private 
   def find_by(predicate) 
     all_movies.find_all do |item|
