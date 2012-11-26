@@ -9,7 +9,7 @@ end
 
 def configure_remote
   run_git_command('remote rm jp')
-  run_git_command('remote add jp git://github.com/camug2012nov/code.git')
+  run_git_command('remote add jp git://github.com/lasvegas2012/prep.git')
 end
 
 def create_first_branches
