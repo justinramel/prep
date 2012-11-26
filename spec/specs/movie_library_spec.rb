@@ -144,20 +144,20 @@ describe MovieLibrary do
 
       context 'when searching for movies' do
           it 'should be able to find all movies published by pixar' do
-            results = sut.all_movies_published_by_pixar;
+            results = sut.all_movies_published_by_pixar
 
             results.should == [ cars, a_bugs_life ]
           end
 
           it 'should be able to find all movies published by pixar or disney' do
 
-            results = sut.all_movies_published_by_pixar_or_disney;
+            results = sut.all_movies_published_by_pixar_or_disney
 
             results.should == [ a_bugs_life, pirates_of_the_carribean, cars ]
           end
 
           it 'should be able to find all movies not published by pixar' do
-            results = sut.all_movies_not_published_by_pixar();
+            results = sut.all_movies_not_published_by_pixar()
 
             [cars,a_bugs_life].each do |item|
               results.include?(item).should be_false
@@ -166,7 +166,7 @@ describe MovieLibrary do
 
           it 'should be able to find all movies published after a certain year' do
 
-            results = sut.all_movies_published_after(2004);
+            results = sut.all_movies_published_after(2004)
 
             results.should == [the_ring, shrek, theres_something_about_mary ]
           end
@@ -180,44 +180,44 @@ describe MovieLibrary do
           end
 
           it 'should be able to find all kid movies' do
-            results = sut.all_kid_movies();
+            results = sut.all_kid_movies()
 
             results.should == [ a_bugs_life, shrek, cars ]
           end
 
           it 'should be able to find all action movies' do
 
-            results = sut.all_action_movies();
+            results = sut.all_action_movies()
 
             results.should  == [ indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
           end
       end
       context 'when searching for movies' do
         it 'should be able to sort all movies by title descending' do
-          results = sut.sort_all_movies_by_title_descending();
+          results = sut.sort_all_movies_by_title_descending()
 
           results.should == [theres_something_about_mary, the_ring, shrek, pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom, cars, a_bugs_life]
         end
 
         it 'should be able to sort all movies by title ascending' do
-          results = sut.sort_all_movies_by_title_ascending();
+          results = sut.sort_all_movies_by_title_ascending()
 
           results.should == [ a_bugs_life, cars, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean, shrek, the_ring, theres_something_about_mary ]
         end
         it 'should be able to sort all movies by date published descending' do
-          results = sut.sort_all_movies_by_date_published_descending();
+          results = sut.sort_all_movies_by_date_published_descending()
 
           results.should == [ theres_something_about_mary, shrek, the_ring, cars, pirates_of_the_carribean, a_bugs_life, indiana_jones_and_the_temple_of_doom ]
         end
 
         it 'should be able to sort all movies by date published ascending' do
-          results = sut.sort_all_movies_by_date_published_ascending();
+          results = sut.sort_all_movies_by_date_published_ascending()
 
           results.should == [ indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, the_ring, shrek, theres_something_about_mary ]
         end
 
         it 'should be able to sort all movies by studio rating and year published' do
-          results = sut.sort_all_movies_by_movie_studio_and_year_published();
+          results = sut.sort_all_movies_by_movie_studio_and_year_published()
 
           results.should == [ the_ring, theres_something_about_mary, a_bugs_life, cars, shrek, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
         end
