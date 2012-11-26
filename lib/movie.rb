@@ -31,4 +31,8 @@ class Movie
   def self.is_published_by_pixar
     IsPublishedBy.new(ProductionStudio.Pixar)
   end
+
+  def self.is_published_by_pixar_or_disney
+    IsPublishedBy.new(ProductionStudio.Pixar).or (IsPublishedBy.new(ProductionStudio.Disney))
+  end
 end
