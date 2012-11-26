@@ -10,8 +10,14 @@ Develop With Passion
 
 =end
 class Movie
-  def initialize(*args)
-    
+  attr_reader :title
+
+  def initialize(title = 'unknown')
+    @title = title
+  end
+
+  def ==(other)
+    @title == other.title
   end
 
 end
