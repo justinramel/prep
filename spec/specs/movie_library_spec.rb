@@ -200,11 +200,10 @@ describe MovieLibrary do
           results.should == [ theres_something_about_mary, shrek, the_ring, cars, pirates_of_the_carribean, a_bugs_life, indiana_jones_and_the_temple_of_doom ]
         end
 
-        #it 'should be able to sort all movies by date published ascending' do
-          #results = sut.sort_all_movies_by_date_published_ascending()
-
-          #results.should == [ indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, the_ring, shrek, theres_something_about_mary ]
-        #end
+        it 'should be able to sort all movies by date published ascending' do
+          results = sut.sort_all_movies_by_date_published_ascending()
+          results.should == [ indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, the_ring, shrek, theres_something_about_mary ]
+        end
 
         #it 'should be able to sort all movies by studio rating and year published' do
           #results = sut.sort_all_movies_by_movie_studio_and_year_published()
