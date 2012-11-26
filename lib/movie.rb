@@ -29,6 +29,6 @@ class Movie
   end
 
   def self.is_published_by_pixar
-    IsPublishedBy.new(ProductionStudio.pixar)
+    IsPublishedBy.new(ProductionStudio.Pixar)
   end
 end
