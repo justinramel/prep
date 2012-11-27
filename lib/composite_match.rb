@@ -1,4 +1,5 @@
 require 'matcher'
+
 class CompositeMatch
   include Matcher
 

@@ -1,6 +1,7 @@
 require 'rspec'
 
 Dir.glob('lib/**/*.rb').each do |f|
+ $:.unshift File.dirname(f)
  require File.basename(f, '.rb')
 end
 
