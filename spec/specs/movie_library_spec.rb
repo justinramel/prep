@@ -158,18 +158,20 @@ describe MovieLibrary do
 
           it 'should be able to find all movies published by pixar' do
             criteria = Where.item(:studio).is_equal_to(ProductionStudio.Pixar)
+
             results = sut.all_items_matching criteria
+
             results.should == [ cars, a_bugs_life ]
           end
 
-          #it 'should be able to find all movies published by pixar or disney' do
-          #  criteria = Where.item(:studio).is_equal_to_any (ProductionStudio.Pixar,ProductionStudio.Disney)
-          #  results = sut.all_items_matching criteria
+          it 'should be able to find all movies published by pixar or disney' do
+           criteria = Where.item(:studio).is_equal_to_any(ProductionStudio.Pixar,ProductionStudio.Disney)
 
-          #  results = sut.all_items_matching Movie.is_published_by_pixar_or_disney
+           results = sut.all_items_matching criteria
 
-          #  results.should contain(cars,a_bugs_life,pirates_of_the_carribean)
-          #end
+
+           results.should contain(cars,a_bugs_life,pirates_of_the_carribean)
+          end
 
           it 'should be able to find all movies not published by pixar' do
             results = sut.all_movies_not_published_by_pixar()
