@@ -1,5 +1,4 @@
 class Where
-  include Matcher
 
   attr_reader :field, :value
 
@@ -8,12 +7,11 @@ class Where
   end
 
   def equal_to(value)
-    @value = value
-    self
+    lambda { |item| item.send(field) == value }
   end
 
-  def matches(item)
-    item.send(field) == value
+  def equal_to_any(*values)
+    lambda { |item| values.each { |v| equal_to(v) } }
   end
 
   def self.item(field)

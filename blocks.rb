@@ -9,7 +9,7 @@ end
 def multiply_by_prime(prime)
 end
 class SomeBigItem
-  
+
 end
 
 def expensive_creation
@@ -23,10 +23,17 @@ class Proc
   def yo
     p 'yo'
   end
+
+  def memoize
+    lambda { @result ||= call }
+  end
+
 end
 
-
+thing = nil
 factory = expensive_creation.memoize
 3.times do
-  factory.call
+  thing = factory.call
 end
+
+puts thing
