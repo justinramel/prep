@@ -157,7 +157,7 @@ describe MovieLibrary do
 
 
           it 'should be able to find all movies published by pixar' do
-            criteria = Where.item(:studio).is_equal_to(ProductionStudio.Pixar)
+            criteria = Where.item(:studio).equal_to(ProductionStudio.Pixar)
 
             results = sut.all_items_matching criteria
 
@@ -165,7 +165,7 @@ describe MovieLibrary do
           end
 
           it 'should be able to find all movies published by pixar or disney' do
-           criteria = Where.item(:studio).is_equal_to_any(ProductionStudio.Pixar,ProductionStudio.Disney)
+           criteria = Where.item(:studio).equal_to_any(ProductionStudio.Pixar,ProductionStudio.Disney)
 
            results = sut.all_items_matching criteria
 

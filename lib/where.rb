@@ -7,7 +7,7 @@ class Where
     @field = field
   end
 
-  def is_equal_to(value)
+  def equal_to(value)
     @value = value
     self
   end
