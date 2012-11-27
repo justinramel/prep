@@ -1,6 +1,6 @@
 
 class Movie
-  attr_reader :title, :release_date, :genre, :rating
+  attr_reader :title, :release_date, :genre, :rating, :studio
 
   def initialize(initial_details = Hash.new(nil))
     @title = initial_details[:title]
