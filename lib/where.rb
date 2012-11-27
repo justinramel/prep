@@ -7,9 +7,14 @@ class Where
     @field = field
   end
 
-  def is_equal_to(value)
+  def equal_to(value)
     @value = value
     self
+  end
+
+  def equal_to_any(*values)
+
+
   end
 
   def matches(item)
