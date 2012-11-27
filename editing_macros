@@ -1,0 +1,4 @@
+Refactoring Macros
+
+
+create a movie: /movf(dt"i :title => j_i:dateuupublished => j_i:genre => j_i:production_studio => j_i:rating => f)x

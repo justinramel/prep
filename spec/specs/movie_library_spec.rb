@@ -52,10 +52,10 @@ describe MovieLibrary do
 
     context 'when adding an existing movie in the collection again' do
       let(:movie){Movie.new}
-      before (:each) do
+      before(:each) do
         movie_collection.push(movie)
       end
-      before (:each) do
+      before(:each) do
         sut.add(movie)
       end
 
@@ -67,10 +67,10 @@ describe MovieLibrary do
       let(:another_copy_of_speed_racer){Movie.new('Speed Racer')}
       let(:speed_racer){Movie.new('Speed Racer')}
 
-      before (:each) do
+      before(:each) do
         movie_collection.push(speed_racer)
       end
-      before (:each) do
+      before(:each) do
         sut.add(another_copy_of_speed_racer)
       end
 
@@ -82,59 +82,59 @@ describe MovieLibrary do
     context 'searching and sorting' do
 
       let(:indiana_jones_and_the_temple_of_doom) do
-        Movie.new("Indiana Jones And The Temple Of Doom",
-        Time.new(1982, 1, 1),
-        Genre.action,
-        ProductionStudio.Universal,
-        10)
+        Movie.new :title => "Indiana Jones And The Temple Of Doom",
+                  :date_published => Time.new(1982, 1, 1),
+                  :genre => Genre.action,
+                  :production_studio => ProductionStudio.Universal,
+                  :rating => 10
       end
 
-      let (:cars) do
-       Movie.new("Cars",
-        Time.new(2004, 1, 1),
-        Genre.kids,
-        ProductionStudio.Pixar,
-        10)
+      let(:cars) do
+        Movie.new :title => "Cars",
+                  :date_published => Time.new(2004, 1, 1),
+                  :genre => Genre.kids,
+                  :production_studio => ProductionStudio.Pixar,
+                  :rating => 10
       end
 
       let(:the_ring) do
-        Movie.new("The Ring",
-        Time.new(2005, 1, 1),
-        Genre.horror,
-        ProductionStudio.MGM,
-        7)
+        Movie.new :title => "The Ring",
+                  :date_published => Time.new(2005, 1, 1),
+                  :genre => Genre.horror,
+                  :production_studio => ProductionStudio.MGM,
+                  :rating => 7
       end
 
       let(:shrek) do
-        Movie.new("Shrek",
-        Time.new(2006, 5, 10),
-        Genre.kids,
-        ProductionStudio.Dreamworks,
-        10)
+        Movie.new :title => "Shrek",
+                  :date_published => Time.new(2006, 5, 10),
+                  :genre => Genre.kids,
+                  :production_studio => ProductionStudio.Dreamworks,
+                  :rating => 10
       end
 
       let(:a_bugs_life) do
-        Movie.new("A Bugs Life",
-        Time.new(2000, 6, 20),
-        Genre.kids,
-        ProductionStudio.Pixar,
-        10)
+        Movie.new :title => "A Bugs Life",
+                  :date_published => Time.new(2000, 6, 20),
+                  :genre => Genre.kids,
+                  :production_studio => ProductionStudio.Pixar,
+                  :rating => 10
       end
 
       let(:theres_something_about_mary) do
-        Movie.new("There's Something About Mary",
-        Time.new(2007, 1, 1),
-        Genre.comedy,
-        ProductionStudio.MGM,
-        5)
+        Movie.new :title => "There's Something About Mary",
+                  :date_published => Time.new(2007, 1, 1),
+                  :genre => Genre.comedy,
+                  :production_studio => ProductionStudio.MGM,
+                  :rating => 5
       end
 
       let(:pirates_of_the_carribean) do
-        Movie.new("Pirates of the Carribean",
-        Time.new(2003, 1, 1),
-        Genre.action,
-        ProductionStudio.Disney,
-        10)
+        Movie.new :title => "Pirates of the Carribean",
+                  :date_published => Time.new(2003, 1, 1),
+                  :genre => Genre.action,
+                  :production_studio => ProductionStudio.Disney,
+                  :rating => 10
       end
 
       let(:original_movies){[indiana_jones_and_the_temple_of_doom, cars,a_bugs_life,theres_something_about_mary,pirates_of_the_carribean,the_ring,shrek]}
@@ -146,12 +146,27 @@ describe MovieLibrary do
       end
 
       context 'when searching for movies' do
+        it 'should be able to invoke a behaviour on an item' do
+          item = Object.new
+
+          def item.do_something
+            42
+          end
+          item.send(:do_something).should == 42
+        end
+        
+
           it 'should be able to find all movies published by pixar' do
-            results = sut.all_items_matching Movie.is_published_by_pixar
+            criteria = Where.item(:studio).is_equal_to(ProductionStudio.pixar)
+            results = sut.all_items_matching criteria
             results.should == [ cars, a_bugs_life ]
           end
 
           it 'should be able to find all movies published by pixar or disney' do
+            # criteria = Where.item(:studio).is_equal_to_any (ProductionStudio.Pixar,ProductionStudio.Disney) 
+
+            results = sut.all_items_matching criteria
+
             results = sut.all_items_matching Movie.is_published_by_pixar_or_disney
 
             results.should contain(cars,a_bugs_life,pirates_of_the_carribean)

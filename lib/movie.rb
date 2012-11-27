@@ -1,13 +1,13 @@
 
 class Movie
-  attr_reader :title, :studio, :release_date, :genre, :rating
+  attr_reader :title, :release_date, :genre, :rating
 
-  def initialize(title = 'unknown', release_date = nil, genre = nil, studio = nil, rating = 0)
-    @title = title
-    @release_date = release_date
-    @genre = genre
-    @studio = studio
-    @rating = rating
+  def initialize(initial_details = Hash.new(nil))
+    @title = initial_details[:title]
+    @release_date = initial_details[:date_published]
+    @genre = initial_details[:genre]
+    @studio = initial_details[:production_studio]
+    @rating = initial_details[:rating]
   end
 
   def ==(other)
