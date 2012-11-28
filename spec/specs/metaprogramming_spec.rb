@@ -6,8 +6,11 @@
 class Class
   def accessors(*names)
     names.each do|attribute_name|
-     define_method(attribute_name) do  
+     define_method(attribute_name) do
        instance_variable_get("@#{attribute_name}")
+     end
+     define_method("#{attribute_name}=") do |value|
+       instance_variable_set("@#{attribute_name}", value)
      end
     end
   end
