@@ -17,7 +17,11 @@ class Class
 end
 class Person
   def initialize_attributes_using(values)
-    p 'Hello'
+    values.each_key do |attribute_name|
+      self.class.send(:define_method, attribute_name) do
+         instance_variable_get("@#{attribute_name}")
+      end
+    end
   end
   def initialize(values = Hash.new(nil))
     initialize_attributes_using values
