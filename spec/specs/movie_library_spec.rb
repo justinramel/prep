@@ -130,7 +130,7 @@ describe MovieLibrary do
 
           it 'should be able to find all movies published by pixar' do
             criteria = Where.item(:studio).equal_to(ProductionStudio.Pixar)
-            #criteria = where(:studio).equal_to(ProductionStudio.Pixar)
+
             results = sut.all_items_matching criteria
 
             results.should == [ cars, a_bugs_life ]
@@ -144,7 +144,8 @@ describe MovieLibrary do
           end
 
           it 'should be able to find all movies not published by pixar' do
-            criteria = Where.item(:studio).not_equal_to(ProductionStudio.Pixar)
+            criteria = Where.item(:studio).not.equal_to(ProductionStudio.Pixar)
+
             results = sut.all_items_matching criteria
 
             [cars,a_bugs_life].each do |item|
