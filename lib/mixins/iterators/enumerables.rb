@@ -3,7 +3,7 @@ module Enumerables
     condition = block_given? ? block : specification
 
     Enumerator.new do |yielder|
-      self.each do|item|
+      each do|item|
         yielder.yield(item) if condition.call(item)
       end
     end
