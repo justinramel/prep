@@ -16,9 +16,11 @@ class Class
   end
 end
 class Person
-
-  def initialize(name,age)
-    accessors :name => name,:age => age
+  def initialize_attributes_using(values)
+    p 'Hello'
+  end
+  def initialize(values = Hash.new(nil))
+    initialize_attributes_using values
   end
 
 end
@@ -26,7 +28,7 @@ end
 describe 'Metaprogramming' do
   let(:age){34}
   let(:name){'JP'}
-  let(:sut){Person.new(name,age)}
+  let(:sut){Person.new(:name => name,:age => age)}
 
   context 'adding attributes' do
     it 'should be able to add a smarter attribute assignment style' do
