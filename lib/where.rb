@@ -4,6 +4,20 @@ module Kernel
   end
 end
 
+class NegateMatch
+  include Matcher
+  def initialize(original)
+    @original = original
+  end
+  def matches(item)
+    !@original.matches(item)
+  end
+end
+module NegationBehaviour
+  def create_matcher(*args)
+    NegateMatch.new(super)
+  end
+end
 class Where
   attr_reader :field
 
@@ -34,11 +48,10 @@ class Where
   end
 
   def not
-
+    self.extend(NegationBehaviour)
   end
 
   def self.item(field)
     new(field)
   end
-
 end
