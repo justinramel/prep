@@ -22,6 +22,12 @@ class Iteration
 
       loop{yield iterators.map{|iterator| iterator.next}}
     end
+
+    def inject(enumerable, start, &block)
+      iterator = enumerable.to_enum
+      loop { start = yield iterator.next, start }
+      start
+    end
   end
 end
 describe 'Iterators' do
@@ -53,7 +59,7 @@ describe 'Iterators' do
       result = Iteration.inject(numbers,0){|number,sum| number + sum}
       result.should == 55
     end
-    
+
   end
 end
 
