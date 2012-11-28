@@ -3,21 +3,18 @@ require 'enumerables'
 class MovieLibrary
   include Enumerables
 
+  attr_reader :all
+
   def initialize(movies)
     @all = movies
   end
 
-  def all
-    @all
-  end
 
   def add(movie)
     all.push(movie) unless all.include? movie
   end
 
-  def all_movies
-    all
-  end
+  def all_movies;all;end
 
   def sort_all_movies_by_title_ascending
     all_movies.sort do |x,y|

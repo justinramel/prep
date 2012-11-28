@@ -154,10 +154,10 @@ describe MovieLibrary do
           end
 
           it 'should be able to find all movies published after a certain year' do
-            criteria = Where.item(:release_date).greater_than(Time.new(2004,01,01))
+            criteria = Where.item(:release_date).not.greater_than(Time.new(2004,01,01))
             results = sut.all_items_matching criteria
 
-            results.should contain(the_ring, shrek, theres_something_about_mary)
+            results.should_not contain(the_ring, shrek, theres_something_about_mary)
           end
 
           it 'should be able to find all movies published between a certain range of years' do
