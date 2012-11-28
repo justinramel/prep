@@ -10,9 +10,7 @@ class MovieLibrary
   end
 
   def each(&block)
-    all_movies.each do|movie|
-      block.call(movie)
-    end
+    all_movies.each(&block)
   end
 
   def add(movie)
