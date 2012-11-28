@@ -1,6 +1,35 @@
 class Iteration
   class << self
-    
+
+    def sequence(first, second, third)
+      first.each { |i| yield(i) }
+      second.each { |i| yield(i) }
+      third.each { |i| yield(i) }
+    end
+
+    def interleave(first, second, third)
+      first_enum = first.to_enum
+      second_enum = second.to_enum
+      third_enum = third.to_enum
+      loop do
+        yield first_enum.next
+        yield second_enum.next
+        yield third_enum.next
+      end
+      loop do
+        yield third_enum.next
+      end
+    end
+
+    def bundle(first, second, third)
+      first_enum = first.to_enum
+      second_enum = second.to_enum
+      third_enum = third.to_enum
+      loop do
+        yield [first_enum.next, second_enum.next, third_enum.next]
+      end
+    end
+
   end
 end
 describe 'Iterators' do
