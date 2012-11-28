@@ -82,59 +82,31 @@ describe MovieLibrary do
     context 'searching and sorting' do
 
       let(:indiana_jones_and_the_temple_of_doom) do
-        Movie.new :title => "Indiana Jones And The Temple Of Doom",
-                  :date_published => Time.new(1982, 1, 1),
-                  :genre => Genre.action,
-                  :production_studio => ProductionStudio.Universal,
-                  :rating => 10
+        Movie.new :title => "Indiana Jones And The Temple Of Doom", :date_published => Time.new(1982, 1, 1), :genre => Genre.action, :production_studio => ProductionStudio.Universal, :rating => 10
       end
 
       let(:cars) do
-        Movie.new :title => "Cars",
-                  :date_published => Time.new(2004, 1, 1),
-                  :genre => Genre.kids,
-                  :production_studio => ProductionStudio.Pixar,
-                  :rating => 10
+        Movie.new :title => "Cars", :date_published => Time.new(2004, 1, 1), :genre => Genre.kids, :production_studio => ProductionStudio.Pixar, :rating => 10
       end
 
       let(:the_ring) do
-        Movie.new :title => "The Ring",
-                  :date_published => Time.new(2005, 1, 1),
-                  :genre => Genre.horror,
-                  :production_studio => ProductionStudio.MGM,
-                  :rating => 7
+        Movie.new :title => "The Ring", :date_published => Time.new(2005, 1, 1), :genre => Genre.horror, :production_studio => ProductionStudio.MGM, :rating => 7
       end
 
       let(:shrek) do
-        Movie.new :title => "Shrek",
-                  :date_published => Time.new(2006, 5, 10),
-                  :genre => Genre.kids,
-                  :production_studio => ProductionStudio.Dreamworks,
-                  :rating => 10
+        Movie.new :title => "Shrek", :date_published => Time.new(2006, 5, 10), :genre => Genre.kids, :production_studio => ProductionStudio.Dreamworks, :rating => 10
       end
 
       let(:a_bugs_life) do
-        Movie.new :title => "A Bugs Life",
-                  :date_published => Time.new(2000, 6, 20),
-                  :genre => Genre.kids,
-                  :production_studio => ProductionStudio.Pixar,
-                  :rating => 10
+        Movie.new :title => "A Bugs Life", :date_published => Time.new(2000, 6, 20), :genre => Genre.kids, :production_studio => ProductionStudio.Pixar, :rating => 10
       end
 
       let(:theres_something_about_mary) do
-        Movie.new :title => "There's Something About Mary",
-                  :date_published => Time.new(2007, 1, 1),
-                  :genre => Genre.comedy,
-                  :production_studio => ProductionStudio.MGM,
-                  :rating => 5
+        Movie.new :title => "There's Something About Mary", :date_published => Time.new(2007, 1, 1), :genre => Genre.comedy, :production_studio => ProductionStudio.MGM, :rating => 5
       end
 
       let(:pirates_of_the_carribean) do
-        Movie.new :title => "Pirates of the Carribean",
-                  :date_published => Time.new(2003, 1, 1),
-                  :genre => Genre.action,
-                  :production_studio => ProductionStudio.Disney,
-                  :rating => 10
+        Movie.new :title => "Pirates of the Carribean", :date_published => Time.new(2003, 1, 1), :genre => Genre.action, :production_studio => ProductionStudio.Disney, :rating => 10
       end
 
       let(:original_movies){[indiana_jones_and_the_temple_of_doom, cars,a_bugs_life,theres_something_about_mary,pirates_of_the_carribean,the_ring,shrek]}
@@ -158,7 +130,7 @@ describe MovieLibrary do
 
           it 'should be able to find all movies published by pixar' do
             criteria = Where.item(:studio).equal_to(ProductionStudio.Pixar)
-
+            #criteria = where(:studio).equal_to(ProductionStudio.Pixar)
             results = sut.all_items_matching criteria
 
             results.should == [ cars, a_bugs_life ]
@@ -166,15 +138,14 @@ describe MovieLibrary do
 
           it 'should be able to find all movies published by pixar or disney' do
            criteria = Where.item(:studio).equal_to_any(ProductionStudio.Pixar,ProductionStudio.Disney)
-
            results = sut.all_items_matching criteria
-
 
            results.should contain(cars,a_bugs_life,pirates_of_the_carribean)
           end
 
           it 'should be able to find all movies not published by pixar' do
-            results = sut.all_movies_not_published_by_pixar()
+            criteria = Where.item(:studio).not_equal_to(ProductionStudio.Pixar)
+            results = sut.all_items_matching criteria
 
             [cars,a_bugs_life].each do |item|
               results.include?(item).should be_false
@@ -182,52 +153,65 @@ describe MovieLibrary do
           end
 
           it 'should be able to find all movies published after a certain year' do
-            results = sut.all_movies_published_after(2004)
+            criteria = Where.item(:release_date).greater_than(Time.new(2004,01,01))
+            results = sut.all_items_matching criteria
+
             results.should contain(the_ring, shrek, theres_something_about_mary)
           end
 
           it 'should be able to find all movies published between a certain range of years' do
-            results = sut.all_movies_published_between_years(1982, 2003)
+            criteria = Where.item(:release_date).between(Time.new(1982,01,01), Time.new(2003,12,01))
+            results = sut.all_items_matching criteria
+
             results.should contain(indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean)
           end
 
           it 'should be able to find all kid movies' do
-            results = sut.all_kid_movies()
+            criteria = Where.item(:genre).equal_to(Genre.kids)
+            results = sut.all_items_matching criteria
+
             results.should contain(a_bugs_life, shrek, cars)
           end
 
           it 'should be able to find all action movies' do
-            results = sut.all_action_movies()
+            criteria = Where.item(:genre).equal_to(Genre.action)
+            results = sut.all_items_matching criteria
+
             results.should contain(indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean)
           end
       end
       context 'when searching for movies' do
         it 'should be able to sort all movies by title descending' do
-          results = sut.sort_all_movies_by_title_descending()
+          sort = Sort.item(:title).descending()
+          results = sut.sort_all_items_by sort
+
           results.should contain_in_order(theres_something_about_mary, the_ring, shrek, pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom, cars, a_bugs_life)
         end
 
         it 'should be able to sort all movies by title ascending' do
-          results = sut.sort_all_movies_by_title_ascending()
+          sort = Sort.item(:title).ascending()
+          results = sut.sort_all_items_by sort
           results.should contain_in_order(a_bugs_life, cars, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean, shrek, the_ring, theres_something_about_mary)
         end
 
         it 'should be able to sort all movies by date published descending' do
-          results = sut.sort_all_movies_by_date_published_descending()
+          sort = Sort.item(:release_date).descending()
+          results = sut.sort_all_items_by sort
           results.should contain_in_order(theres_something_about_mary, shrek, the_ring, cars, pirates_of_the_carribean, a_bugs_life, indiana_jones_and_the_temple_of_doom)
         end
 
         it 'should be able to sort all movies by date published ascending' do
-          results = sut.sort_all_movies_by_date_published_ascending()
+          sort = Sort.item(:release_date).ascending()
+          results = sut.sort_all_items_by sort
           results.should contain_in_order(indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, the_ring, shrek, theres_something_about_mary)
         end
 
         it 'should be able to sort all movies by studio rating and year published' do
-          results = sut.sort_all_movies_by_movie_studio_and_year_published()
-          puts results
-          #results.should contain_in_order(the_ring, theres_something_about_mary, a_bugs_life, cars, shrek, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean)
-          results.should == [the_ring, theres_something_about_mary, a_bugs_life, cars, shrek, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean ]
+          sort = Sort.item(:rating).descending().then_by(:release_date).ascending()
+          results = sut.sort_all_items_by sort
+          results.should == [indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, shrek, the_ring, theres_something_about_mary]
         end
+
       end
     end
   end

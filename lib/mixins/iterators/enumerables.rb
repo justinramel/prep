@@ -5,4 +5,12 @@ module Enumerables
       condition.call(item)
     end
   end
+
+  def sort_all_items_by(specification = nil, &block)
+    condition = block_given? ? block : specification
+    all.sort do |x, y|
+      condition.call(x, y)
+    end
+  end
+
 end

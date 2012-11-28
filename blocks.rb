@@ -7,6 +7,7 @@ def multiply(first,second)
 end
 
 def multiply_by_prime(prime)
+  lambda { |number| multiply(number, prime) }
 end
 class SomeBigItem
 
