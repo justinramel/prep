@@ -128,96 +128,97 @@ describe MovieLibrary do
         end
 
 
-          it 'should be able to find all movies published by pixar' do
-            criteria = Where.item(:studio).equal_to(ProductionStudio.Pixar)
+        it 'should be able to find all movies published by pixar' do
+          criteria = Where.item(:studio).equal_to(ProductionStudio.Pixar)
 
-            results = sut.all_items_matching criteria
+          results = sut.all_items_matching criteria
 
-            results.should == [ cars, a_bugs_life ]
+          results.should == [ cars, a_bugs_life ]
+        end
+
+        it 'should be able to find all movies published by pixar or disney' do
+          criteria = Where.item(:studio).equal_to_any(ProductionStudio.Pixar,ProductionStudio.Disney)
+          results = sut.all_items_matching criteria
+
+          results.should contain(cars,a_bugs_life,pirates_of_the_carribean)
+        end
+
+        it 'should be able to find all movies not published by pixar' do
+          criteria = Where.item(:studio).not.equal_to(ProductionStudio.Pixar)
+
+          results = sut.all_items_matching criteria
+
+          [cars,a_bugs_life].each do |item|
+            results.include?(item).should be_false
           end
+        end
 
-          it 'should be able to find all movies published by pixar or disney' do
-           criteria = Where.item(:studio).equal_to_any(ProductionStudio.Pixar,ProductionStudio.Disney)
-           results = sut.all_items_matching criteria
+        it 'should be able to find all movies published after a certain year' do
+          criteria = Where.item(:release_date).not.greater_than(Time.new(2004,01,01))
+          results = sut.all_items_matching criteria
 
-           results.should contain(cars,a_bugs_life,pirates_of_the_carribean)
-          end
+          results.should_not contain(the_ring, shrek, theres_something_about_mary)
+        end
 
-          it 'should be able to find all movies not published by pixar' do
-            criteria = Where.item(:studio).not.equal_to(ProductionStudio.Pixar)
+        it 'should be able to find all movies published between a certain range of years' do
+          criteria = Where.item(:release_date).between(Time.new(1982,01,01), Time.new(2003,12,01))
+          results = sut.all_items_matching criteria
 
-            results = sut.all_items_matching criteria
+          results.should contain(indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean)
+        end
 
-            [cars,a_bugs_life].each do |item|
-              results.include?(item).should be_false
-            end
-          end
+        it 'should be able to find all kid movies' do
+          criteria = Where.item(:genre).equal_to(Genre.kids)
+          results = sut.all_items_matching criteria
 
-          it 'should be able to find all movies published after a certain year' do
-            criteria = Where.item(:release_date).not.greater_than(Time.new(2004,01,01))
-            results = sut.all_items_matching criteria
+          results.should contain(a_bugs_life, shrek, cars)
+        end
 
-            results.should_not contain(the_ring, shrek, theres_something_about_mary)
-          end
+        it 'should be able to find all action movies' do
+          criteria = Where.item(:genre).equal_to(Genre.action)
+          results = sut.all_items_matching criteria
 
-          it 'should be able to find all movies published between a certain range of years' do
-            criteria = Where.item(:release_date).between(Time.new(1982,01,01), Time.new(2003,12,01))
-            results = sut.all_items_matching criteria
-
-            results.should contain(indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean)
-          end
-
-          it 'should be able to find all kid movies' do
-            criteria = Where.item(:genre).equal_to(Genre.kids)
-            results = sut.all_items_matching criteria
-
-            results.should contain(a_bugs_life, shrek, cars)
-          end
-
-          it 'should be able to find all action movies' do
-            criteria = Where.item(:genre).equal_to(Genre.action)
-            results = sut.all_items_matching criteria
-
-            results.should contain(indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean)
-          end
+          results.should contain(indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean)
+        end
       end
       context 'when searching for movies' do
         it 'should be able to sort all movies by title descending' do
           sort = Sort.by_descending(:title)
 
-          results = sut.sort_all_items_by sort
+          results = sut.sort_using sort
 
           results.should contain_in_order(theres_something_about_mary, the_ring, shrek, pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom, cars, a_bugs_life)
         end
 
         it 'should be able to sort all movies by title ascending' do
           sort = Sort.by(:title)
-          results = sut.sort_all_items_by sort
+          results = sut.sort_using sort
           results.should contain_in_order(a_bugs_life, cars, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean, shrek, the_ring, theres_something_about_mary)
         end
 
         it 'should be able to sort all movies by date published descending' do
-          sort = Sort.by(:release_date)
-          results = sut.sort_all_items_by sort
+          results = sut.sort_using Sort.by_descending(:release_date)
           results.should contain_in_order(theres_something_about_mary, shrek, the_ring, cars, pirates_of_the_carribean, a_bugs_life, indiana_jones_and_the_temple_of_doom)
         end
 
         it 'should be able to sort all movies by date published ascending' do
           sort = Sort.by(:release_date)
-          results = sut.sort_all_items_by sort
+          results = sut.sort_using sort
           results.should contain_in_order(indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, the_ring, shrek, theres_something_about_mary)
         end
 
         it 'should be able to sort all movies by studio rating and year published' do
-          sort = Sort.by(:studio, ProductionStudio.MGM,
-                        ProductionStudio.Disney,
+          comparer = Sort.by(:studio, ProductionStudio.MGM,
                         ProductionStudio.Pixar,
                         ProductionStudio.Dreamworks,
+                        ProductionStudio.Universal,
+                        ProductionStudio.Disney,
                         ProductionStudio.Paramount).then_by(:release_date)
-          results = sut.sort_all_items_by sort
-          results.should == [indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, shrek, the_ring, theres_something_about_mary]
-        end
 
+          results = sut.sort_using comparer
+
+          results.should == [the_ring,theres_something_about_mary,a_bugs_life,cars,shrek, indiana_jones_and_the_temple_of_doom,pirates_of_the_carribean]
+        end
       end
     end
   end

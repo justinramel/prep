@@ -15,4 +15,7 @@ class ProductionStudio
   def self.Dreamworks
     "Dreamworks"
   end
+  def self.Paramount
+    "Paramount"
+  end
 end
