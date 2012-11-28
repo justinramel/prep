@@ -19,9 +19,10 @@ class Iteration
 
     def bundle(*enumerables,&block)
       iterators = enumerables.map{|item| item.to_enum}
-
+      loop do
+        block.call( iterators.map { |iterator| iterator.next })
+      end
     end
-
   end
 end
 describe 'Iterators' do
