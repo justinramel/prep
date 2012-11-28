@@ -3,12 +3,17 @@ require 'matcher'
 class BlockMatch
   include Matcher
 
-  def initialize(&block)
+  def initialize(negate, &block)
     @condition = block
+    @negate = negate
   end
 
   def matches(item)
-    @condition.call(item)
+    if @negate
+      !@condition.call(item)
+    else
+      @condition.call(item)
+    end
   end
-  
+
 end
