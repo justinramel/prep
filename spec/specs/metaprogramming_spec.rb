@@ -16,12 +16,11 @@ class Class
   end
 end
 class Person
-  accessors :name,:age
 
   def initialize(name,age)
-    @name = name
-    @age = age
+    accessors :name => name,:age => age
   end
+
 end
 
 describe 'Metaprogramming' do
