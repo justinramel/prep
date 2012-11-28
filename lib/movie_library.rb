@@ -9,6 +9,11 @@ class MovieLibrary
     @all = movies
   end
 
+  def each(&block)
+    all_movies.each do|movie|
+      block.call(movie)
+    end
+  end
 
   def add(movie)
     all.push(movie) unless all.include? movie
