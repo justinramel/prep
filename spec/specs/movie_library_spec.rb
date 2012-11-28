@@ -161,7 +161,6 @@ describe MovieLibrary do
         end
 
         it 'should be able to find all movies published between a certain range of years' do
-          pending('fix this')
           criteria = Where.item(:release_date).between(Time.new(1982,01,01), Time.new(2003,12,01))
           results = sut.all_items_matching criteria
 

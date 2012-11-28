@@ -18,7 +18,7 @@ module MatchCreation
   end
 
   def between(min, max)
-    create_matcher {|item| (min..max) === item}
+    create_matcher {|item| item >= min && item <= max}
   end
 
   def not
