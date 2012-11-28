@@ -3,10 +3,12 @@
 #define_method(name,&block)
 #instance_variable_{get,set} (@{name})
 
-class Object
-  def self.accessors(*names)
+class Class
+  def accessors(*names)
     names.each do|attribute_name|
-     define_method(attribute_name, lambda { instance_variable_get("@#{attribute_name}") })
+     define_method(attribute_name) do  
+       instance_variable_get("@#{attribute_name}")
+     end
     end
   end
 end
@@ -28,6 +30,9 @@ describe 'Metaprogramming' do
     it 'should be able to add a smarter attribute assignment style' do
       sut.name.should == name
       sut.age.should == age
+
+      sut.name = "Justin"
+      sut.name.should == "Justin"
     end
   end
 end
