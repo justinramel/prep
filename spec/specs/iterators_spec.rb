@@ -1,33 +1,25 @@
 class Iteration
   class << self
 
-    def sequence(first, second, third)
-      first.each { |i| yield(i) }
-      second.each { |i| yield(i) }
-      third.each { |i| yield(i) }
+    def sequence(*enumerables,&block)
+      enumerables.each{|item| item.each(&block)}
     end
 
-    def interleave(first, second, third)
-      first_enum = first.to_enum
-      second_enum = second.to_enum
-      third_enum = third.to_enum
-      loop do
-        yield first_enum.next
-        yield second_enum.next
-        yield third_enum.next
-      end
-      loop do
-        yield third_enum.next
+    def interleave(*enumerables,&block)
+      iterators = enumerables.map{|item| item.to_enum}
+      until iterators.empty?
+        begin
+          iterator = iterators.shift
+          yield iterator.next
+          iterators << iterator
+        rescue StopIteration
+        end
       end
     end
 
-    def bundle(first, second, third)
-      first_enum = first.to_enum
-      second_enum = second.to_enum
-      third_enum = third.to_enum
-      loop do
-        yield [first_enum.next, second_enum.next, third_enum.next]
-      end
+    def bundle(*enumerables,&block)
+      iterators = enumerables.map{|item| item.to_enum}
+
     end
 
   end
