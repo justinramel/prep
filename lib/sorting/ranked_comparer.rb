@@ -4,6 +4,6 @@ class RankedComparer
     @items = items
   end
   def compare(x,y)
-    @items.index_of(x) <=> @items.index_of(y)
+    @items.index(x) <=> @items.index(y)
   end
 end
