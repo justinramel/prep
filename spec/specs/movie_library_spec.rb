@@ -133,7 +133,7 @@ describe MovieLibrary do
 
           results = sut.all_items_matching criteria
 
-          results.should == [ cars, a_bugs_life ]
+          results.to_a.should == [ cars, a_bugs_life ]
         end
 
         it 'should be able to find all movies published by pixar or disney' do

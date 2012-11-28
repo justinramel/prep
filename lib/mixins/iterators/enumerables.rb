@@ -1,11 +1,12 @@
 module Enumerables
   def all_items_matching(specification = nil ,&block)
     condition = block_given? ? block : specification
-    results = []
-    self.each do|item|
-      results << item if condition.call(item)
+
+    Enumerator.new do |yielder|
+      self.each do|item|
+        yielder.yield(item) if condition.call(item)
+      end
     end
-    results
   end
 
   def sort_using(comparison = nil, &block)
