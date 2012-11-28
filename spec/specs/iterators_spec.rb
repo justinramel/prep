@@ -1,6 +1,5 @@
 class Iteration
   class << self
-
     def sequence(*enumerables,&block)
       enumerables.each{|item| item.each(&block)}
     end
@@ -23,10 +22,10 @@ class Iteration
       loop{yield iterators.map{|iterator| iterator.next}}
     end
 
-    def inject(enumerable, start, &block)
+    def inject(enumerable, result, &block)
       iterator = enumerable.to_enum
-      loop { start = yield iterator.next, start }
-      start
+      loop { result = yield iterator.next, result }
+      result
     end
   end
 end
