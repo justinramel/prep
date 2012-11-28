@@ -1,23 +1,12 @@
-class MyCustomNameEnumerator
-  def initialize(*names)
-    @names = names
-    @current_name_index = 0
-  end
-
-  def next
-    raise StopIteration if @current_name_index == @names.count
-
-    value = @names[@current_name_index]
-    @current_name_index += 1
-    value
+class Enumerator
+  def deferred_select(&condition)
+    Enumerator.new do |yielder|
+      self.each do|value|
+        yielder.yield value if condition.call(value)
+      end
+    end
   end
 end
-
-
-iterator = MyCustomNameEnumerator.new('JP','Justin','Mo')
-
-loop{ p iterator.next }
-
 
 numbers = Enumerator.new do|yielder|
   number = 1
@@ -27,5 +16,5 @@ numbers = Enumerator.new do|yielder|
   end
 end
 
-numbers.deferred_select{|item| item < 10}.take(5)
+p numbers.deferred_select{|item| item < 10}.take(5)
 
