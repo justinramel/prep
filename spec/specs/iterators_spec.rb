@@ -19,9 +19,8 @@ class Iteration
 
     def bundle(*enumerables,&block)
       iterators = enumerables.map{|item| item.to_enum}
-      loop do
-        block.call( iterators.map { |iterator| iterator.next })
-      end
+
+      loop{yield iterators.map{|iterator| iterator.next}}
     end
   end
 end
@@ -48,6 +47,13 @@ describe 'Iterators' do
       Iteration.bundle(first,second,third){|item| results << item}
       results.should == [[1,4,'a'],[2,5,'b'],[3,6,'c']]
     end
+
+    it 'should be able to emulate injection' do
+      numbers = (1..10).to_a
+      result = Iteration.inject(numbers,0){|number,sum| number + sum}
+      result.should == 55
+    end
+    
   end
 end
 
