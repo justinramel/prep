@@ -31,10 +31,31 @@ class Proc
 
 end
 
-thing = nil
-factory = expensive_creation.memoize
-3.times do
-  thing = factory.call
+
+module MessageGenerator
+  def hello
+    p 'Hi There'
+    super
+  end
 end
 
-puts thing
+class SomeItem
+  def hello
+    p 'Hello'
+  end
+end
+
+class SomeItem
+  old_hello = instance_method(:hello)
+
+  define_method(:hello) do
+    old_hello.bind(self).call
+    p 'Metaprogramming is the bomb'
+  end
+end
+
+item = SomeItem.new
+# item.send(:extend,MessageGenerator)
+item.hello
+
+
