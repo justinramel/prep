@@ -11,18 +11,13 @@ class Where
     @field = field
   end
 
-  def not
-    @negate = true
-    self
-  end
-
-  def create_matcher_using(match_strategy = NeverMatch.new, &block)
+  def create_matcher(match_strategy = NeverMatch.new, &block)
     strategy = block_given? ? BlockMatch.new(&block) : match_strategy
     SymbolicMatch.new(field,strategy)
   end
 
   def equal_to_any(*values)
-    create_matcher_using {|item| values.include? item}
+    create_matcher {|item| values.include? item}
   end
 
   def equal_to(value)
@@ -30,11 +25,11 @@ class Where
   end
 
   def greater_than(value)
-    create_matcher_using {|item| item > value}
+    create_matcher {|item| item > value}
   end
 
   def between(min, max)
-    create_matcher_using {|item| (min..max) === item}
+    create_matcher {|item| (min..max) === item}
   end
 
   def self.item(field)
