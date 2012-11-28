@@ -12,7 +12,8 @@ class Where
   end
 
   def create_matcher(match_strategy = NeverMatch.new, &block)
-    strategy = block_given? ? BlockMatch.new(@negate, &block) : match_strategy
+    strategy = block_given? ? BlockMatch.new(&block) : match_strategy
+
     SymbolicMatch.new(field,strategy)
   end
 
@@ -33,8 +34,7 @@ class Where
   end
 
   def not
-    @negate = true
-    self
+
   end
 
   def self.item(field)
