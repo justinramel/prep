@@ -185,36 +185,39 @@ describe MovieLibrary do
         it 'should be able to sort all movies by title descending' do
           sort = Sort.by_descending(:title)
 
-          results = sut.sort_all_items_by sort
+          results = sut.sort_using sort
 
           results.should contain_in_order(theres_something_about_mary, the_ring, shrek, pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom, cars, a_bugs_life)
         end
 
         it 'should be able to sort all movies by title ascending' do
           sort = Sort.by(:title)
-          results = sut.sort_all_items_by sort
+          results = sut.sort_using sort
           results.should contain_in_order(a_bugs_life, cars, indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean, shrek, the_ring, theres_something_about_mary)
         end
 
         it 'should be able to sort all movies by date published descending' do
-          sort = Sort.by(:release_date)
-          results = sut.sort_all_items_by sort
+          sort = Sort.by_descending(:release_date)
+          results = sut.sort_using sort
           results.should contain_in_order(theres_something_about_mary, shrek, the_ring, cars, pirates_of_the_carribean, a_bugs_life, indiana_jones_and_the_temple_of_doom)
         end
 
         it 'should be able to sort all movies by date published ascending' do
           sort = Sort.by(:release_date)
-          results = sut.sort_all_items_by sort
+          results = sut.sort_using sort
           results.should contain_in_order(indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, the_ring, shrek, theres_something_about_mary)
         end
 
         it 'should be able to sort all movies by studio rating and year published' do
+          #sort = Sort.by(:studio, ProductionStudio.MGM,
+          #              ProductionStudio.Disney,
+          #              ProductionStudio.Pixar,
+          #              ProductionStudio.Dreamworks).then_by(:release_date)
           sort = Sort.by(:studio, ProductionStudio.MGM,
                         ProductionStudio.Disney,
                         ProductionStudio.Pixar,
-                        ProductionStudio.Dreamworks,
-                        ProductionStudio.Paramount).then_by(:release_date)
-          results = sut.sort_all_items_by sort
+                        ProductionStudio.Dreamworks).then_by(:release_date)
+          results = sut.sort_using sort
           results.should == [indiana_jones_and_the_temple_of_doom, a_bugs_life, pirates_of_the_carribean, cars, shrek, the_ring, theres_something_about_mary]
         end
 
